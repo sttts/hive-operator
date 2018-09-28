@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/openshift-hive/hive-operator/pkg/apis/hive/v1alpha1"
+	"github.com/official-hive-operator/hive-operator-1/pkg/apis/hive/v1alpha1"
 
 	"github.com/operator-framework/operator-sdk/pkg/sdk"
 	"github.com/sirupsen/logrus"
@@ -13,7 +13,6 @@ import (
 	"k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"k8s.io/apimachinery/pkg/util/intstr"
 )
 
 func NewHandler() sdk.Handler {
@@ -53,20 +52,6 @@ func (h *Handler) Handle(ctx context.Context, event sdk.Event) error {
 				if err != nil {
 					return fmt.Errorf("failed to update deployment: %v", err)
 				}
-			}
-			/*podNames := getPodNames(podList.Items)
-			if !reflect.DeepEqual(podNames, memcached.Status.Nodes) {
-				memcached.Status.Nodes = podNames
-				err := sdk.Update(memcached)
-				if err != nil {
-					return fmt.Errorf("failed to update memcached status: %v", err)
-				}
-			}*/
-			//create the service
-			err = sdk.Create(newHiveService(o))
-			if err != nil && !errors.IsAlreadyExists(err) {
-				logrus.Errorf("Failed to create Hive service: %v", err)
-				return err
 			}
 		}
 	}
@@ -117,78 +102,3 @@ func newHiveDeployment(cr *v1alpha1.Hive) *appsv1.Deployment {
 		},
 	}
 }
-
-//Service
-func newHiveService(cr *v1alpha1.Hive) *corev1.Service {
-	labels := map[string]string{
-		"app": "hive-operator",
-	}
-	//service is present in corev1 just like pod
-	return &corev1.Service{
-		TypeMeta: metav1.TypeMeta{
-			Kind:       "Service",
-			APIVersion: "v1",
-		},
-		ObjectMeta: metav1.ObjectMeta{
-			Name:      "hive-service",
-			Namespace: cr.Namespace,
-			OwnerReferences: []metav1.OwnerReference{
-				*metav1.NewControllerRef(cr, schema.GroupVersionKind{
-					Group:   v1alpha1.SchemeGroupVersion.Group,
-					Version: v1alpha1.SchemeGroupVersion.Version,
-					Kind:    "Hive",
-				}),
-			},
-			Labels: labels,
-		},
-		Spec: corev1.ServiceSpec{
-			Type: "NodePort",
-			Selector: map[string]string{
-				"app": "hive-operator",
-			},
-			Ports: []corev1.ServicePort{
-				{
-					Protocol: corev1.Protocol("TCP"),
-					TargetPort: intstr.IntOrString{
-						StrVal: "8080"},
-					Port: 8080,
-				},
-			},
-		},
-	}
-}
-
-// newbusyBoxPod demonstrates how to create a busybox pod
-/*func newbusyBoxPod(cr *v1alpha1.Hive) *corev1.Pod {
-	labels := map[string]string{
-		"app": "busy-box",
-	}
-	apps.Deployment{}
-	return &corev1.Pod{
-		TypeMeta: metav1.TypeMeta{
-			Kind:       "Pod",
-			APIVersion: "v1",
-		},
-		ObjectMeta: metav1.ObjectMeta{
-			Name:      "busy-box",
-			Namespace: cr.Namespace,
-			OwnerReferences: []metav1.OwnerReference{
-				*metav1.NewControllerRef(cr, schema.GroupVersionKind{
-					Group:   v1alpha1.SchemeGroupVersion.Group,
-					Version: v1alpha1.SchemeGroupVersion.Version,
-					Kind:    "Hive",
-				}),
-			},
-			Labels: labels,
-		},
-		Spec: corev1.PodSpec{
-			Containers: []corev1.Container{
-				{
-					Name:    "busybox",
-					Image:   "busybox",
-					Command: []string{"sleep", "3600"},
-				},
-			},
-		},
-	}
-}*/
