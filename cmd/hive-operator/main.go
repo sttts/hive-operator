@@ -23,7 +23,7 @@ func printVersion() {
 func main() {
 	printVersion()
 
-	resource := "hive.example.com/v1alpha1"
+	resource := "hive.openshift.io/v1alpha1"
 	kind := "Hive"
 	namespace, err := k8sutil.GetWatchNamespace()
 	if err != nil {

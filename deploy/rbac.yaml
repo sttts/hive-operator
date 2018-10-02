@@ -4,7 +4,7 @@ metadata:
   name: hive-operator
 rules:
 - apiGroups:
-  - hive.example.com
+  - hive.openshift.io
   resources:
   - "*"
   verbs:

@@ -1,3 +1,3 @@
 // +k8s:deepcopy-gen=package
-// +groupName=hive.example.com
+// +groupName=hive.openshift.io
 package v1alpha1

@@ -10,7 +10,7 @@ import (
 
 const (
 	version   = "v1alpha1"
-	groupName = "hive.example.com"
+	groupName = "hive.openshift.io"
 )
 
 var (
