@@ -1,0 +1,3 @@
+apiVersion: hive.openshift.io/v1alpha1
+kind: Hive
+projectName: hive-operator
