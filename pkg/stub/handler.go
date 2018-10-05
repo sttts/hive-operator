@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/official-hive-operator/hive-operator-1/pkg/apis/hive/v1alpha1"
+	"github.com/openshift/hive-operator/pkg/apis/hive/v1alpha1"
 
 	"github.com/operator-framework/operator-sdk/pkg/sdk"
 	"github.com/sirupsen/logrus"
