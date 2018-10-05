@@ -6,8 +6,9 @@ Steps to run the deployment locally
 2) Make sure you clone the repository in $GOPATH/src/github.com/openshift/
 3) Install operator-sdk from https://github.com/operator-framework/operator-sdk
 4) Make sure minikube is running
-5) run kubectl create -f deploy/crd.yaml - this creates the CRD
-6) run operator-sdk up local --namespace default --kubeconfig yourconfig
-7) run kubectl create -f deploy/rbac.yaml
-8) run kubectl create -f deploy/cr.yaml
+5) run kubectl create -f deploy/crd.yaml
+6) run kubectl create -f deploy/cluster-deployment.yaml
+7) run operator-sdk up local --namespace default --kubeconfig yourconfig
+8) run kubectl create -f deploy/rbac.yaml
+9) run kubectl create -f deploy/cr.yaml
 
