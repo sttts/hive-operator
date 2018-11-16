@@ -2,17 +2,18 @@ package hive
 
 import (
 	"context"
-	"log"
-
 	hivev1alpha1 "github.com/openshift/hive-operator/pkg/apis/hive/v1alpha1"
+	"io"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
-	"k8s.io/apimachinery/pkg/types"
+	"k8s.io/apimachinery/pkg/util/yaml"
+	"log"
+	"os"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/controller"
-	"sigs.k8s.io/controller-runtime/pkg/controller/controllerutil"
 	"sigs.k8s.io/controller-runtime/pkg/handler"
 	"sigs.k8s.io/controller-runtime/pkg/manager"
 	"sigs.k8s.io/controller-runtime/pkg/reconcile"
@@ -97,7 +98,7 @@ func (r *ReconcileHive) Reconcile(request reconcile.Request) (reconcile.Result, 
 	}
 
 	// Define a new Pod object
-	pod := newPodForCR(instance)
+	/*pod := newPodForCR(instance)
 
 	// Set Hive instance as the owner and controller
 	if err := controllerutil.SetControllerReference(instance, pod, r.scheme); err != nil {
@@ -121,7 +122,36 @@ func (r *ReconcileHive) Reconcile(request reconcile.Request) (reconcile.Result, 
 	}
 
 	// Pod already exists - don't requeue
-	log.Printf("Skip reconcile: Pod %s/%s already exists", found.Namespace, found.Name)
+	log.Printf("Skip reconcile: Pod %s/%s already exists", found.Namespace, found.Name)*/
+
+	//Registering cluster-deployment CRD
+	//u := v1alpha1.CustomResourceDefinitions{}
+	u := unstructured.Unstructured{}
+	f, err := os.Open("deploy/config/manager.yaml")
+	if err != nil {
+		panic(err.Error())
+	}
+	decoder := yaml.NewYAMLOrJSONDecoder(f, 65536)
+	for {
+		log.Print("Inside creation of cluster-deployment")
+		//u = v1alpha1.CustomResourceDefinitions{}
+		err = decoder.Decode(&u)
+		if err == io.EOF {
+			break
+		}
+		if err != nil && err != io.EOF {
+			panic(err.Error())
+		}
+		//err = sdk.Create(&u)
+		r.client.Create(context.TODO(), &u)
+
+		if err != nil && !errors.IsAlreadyExists(err) {
+			log.Print("Failed to create deployment.yaml: %v", err)
+		}
+	}
+	log.Print("Outside creation of deployment")
+	//return &u
+
 	return reconcile.Result{}, nil
 }
 
