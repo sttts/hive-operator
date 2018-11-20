@@ -82,7 +82,6 @@ func registerComponents(componentPath string, r *ReconcileHive) {
 	}
 	decoder := yaml.NewYAMLOrJSONDecoder(file, 65536)
 	for {
-		log.Print("Inside creation of resourse")
 		err = decoder.Decode(&componentObject)
 		if err == io.EOF {
 			break
@@ -122,61 +121,9 @@ func (r *ReconcileHive) Reconcile(request reconcile.Request) (reconcile.Result, 
 		return reconcile.Result{}, err
 	}
 
-	// Define a new Pod object
-	/*pod := newPodForCR(instance)
-
-	// Set Hive instance as the owner and controller
-	if err := controllerutil.SetControllerReference(instance, pod, r.scheme); err != nil {
-		return reconcile.Result{}, err
-	}
-
-	// Check if this Pod already exists
-	found := &corev1.Pod{}
-	err = r.client.Get(context.TODO(), types.NamespacedName{Name: pod.Name, Namespace: pod.Namespace}, found)
-	if err != nil && errors.IsNotFound(err) {
-		log.Printf("Creating a new Pod %s/%s\n", pod.Namespace, pod.Name)
-		err = r.client.Create(context.TODO(), pod)
-		if err != nil {
-			return reconcile.Result{}, err
-		}
-
-		// Pod created successfully - don't requeue
-		return reconcile.Result{}, nil
-	} else if err != nil {
-		return reconcile.Result{}, err
-	}
-
-	// Pod already exists - don't requeue
-	log.Printf("Skip reconcile: Pod %s/%s already exists", found.Namespace, found.Name)*/
-
-	//Registering cluster-deployment CRD
-	//u := v1alpha1.CustomResourceDefinitions{}
-	/*u := unstructured.Unstructured{}
-	f, err := os.Open("deploy/config/manager.yaml")
-	if err != nil {
-		panic(err.Error())
-	}
-	decoder := yaml.NewYAMLOrJSONDecoder(f, 65536)
-	for {
-		log.Print("Inside creation of cluster-deployment")
-		//u = v1alpha1.CustomResourceDefinitions{}
-		err = decoder.Decode(&u)
-		if err == io.EOF {
-			break
-		}
-		if err != nil && err != io.EOF {
-			panic(err.Error())
-		}
-		//err = sdk.Create(&u)
-		r.client.Create(context.TODO(), &u)
-
-		if err != nil && !errors.IsAlreadyExists(err) {
-			log.Print("Failed to create deployment.yaml: %v", err)
-		}
-	}
-	log.Print("Outside creation of deployment")*/
-	//return &u
+	//Register manager.yaml
 	managerComponent := "deploy/config/manager.yaml"
+	//Register rbac-role.yaml
 	roleComponent := "deploy/config/rbac-role.yaml"
 	registerComponents(managerComponent, r)
 	registerComponents(roleComponent, r)
