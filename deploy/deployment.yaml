@@ -4,12 +4,8 @@ metadata:
   name: hive-deployment
   labels:
     app: hive-operator
-  ownerReference:
-  - hive.openshift.io
-  - v1alpha1
-  - Hive
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: hive-operator

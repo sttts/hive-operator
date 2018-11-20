@@ -73,6 +73,31 @@ type ReconcileHive struct {
 	scheme *runtime.Scheme
 }
 
+//Register components to the cluster
+func registerComponents(componentPath string, r *ReconcileHive) {
+	componentObject := unstructured.Unstructured{}
+	file, err := os.Open(componentPath)
+	if err != nil {
+		panic(err.Error())
+	}
+	decoder := yaml.NewYAMLOrJSONDecoder(file, 65536)
+	for {
+		log.Print("Inside creation of resourse")
+		err = decoder.Decode(&componentObject)
+		if err == io.EOF {
+			break
+		}
+		if err != nil && err != io.EOF {
+			panic(err.Error())
+		}
+		r.client.Create(context.TODO(), &componentObject)
+
+		if err != nil && !errors.IsAlreadyExists(err) {
+			log.Print("Failed to create resource: %v", err)
+		}
+	}
+}
+
 // Reconcile reads that state of the cluster for a Hive object and makes changes based on the state read
 // and what is in the Hive.Spec
 // TODO(user): Modify this Reconcile function to implement your Controller logic.  This example creates
@@ -126,7 +151,7 @@ func (r *ReconcileHive) Reconcile(request reconcile.Request) (reconcile.Result, 
 
 	//Registering cluster-deployment CRD
 	//u := v1alpha1.CustomResourceDefinitions{}
-	u := unstructured.Unstructured{}
+	/*u := unstructured.Unstructured{}
 	f, err := os.Open("deploy/config/manager.yaml")
 	if err != nil {
 		panic(err.Error())
@@ -149,8 +174,12 @@ func (r *ReconcileHive) Reconcile(request reconcile.Request) (reconcile.Result, 
 			log.Print("Failed to create deployment.yaml: %v", err)
 		}
 	}
-	log.Print("Outside creation of deployment")
+	log.Print("Outside creation of deployment")*/
 	//return &u
+	managerComponent := "deploy/config/manager.yaml"
+	roleComponent := "deploy/config/rbac-role.yaml"
+	registerComponents(managerComponent, r)
+	registerComponents(roleComponent, r)
 
 	return reconcile.Result{}, nil
 }
