@@ -82,7 +82,7 @@ required = [
 [prune]
   go-tests = true
   non-go = true
-
+  
   [[prune.project]]
     name = "k8s.io/code-generator"
     non-go = false
