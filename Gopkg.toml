@@ -39,6 +39,10 @@ required = [
   name = "sigs.k8s.io/controller-runtime"
   version = "v0.1.4"
 
+[[override]]
+  name = "k8s.io/kube-aggregator"
+  version = "kubernetes-1.11.2"
+
 [[constraint]]
   name = "github.com/operator-framework/operator-sdk"
   # The version rule is used for a specific release and the master branch for in between releases.

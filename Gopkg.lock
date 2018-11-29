@@ -216,6 +216,14 @@
   version = "v1.1.5"
 
 [[projects]]
+  digest = "1:4059c14e87a2de3a434430340521b5feece186c1469eff0834c29a63870de3ed"
+  name = "github.com/konsorten/go-windows-terminal-sequences"
+  packages = ["."]
+  pruneopts = "NT"
+  revision = "5c8c8bd35d3832f5d134ae1e1e375b69a4d25242"
+  version = "v1.0.1"
+
+[[projects]]
   branch = "master"
   digest = "1:7d9fcac7f1228470c4ea0ee31cdfb662a758c44df691e39b3e76c11d3e12ba8f"
   name = "github.com/mailru/easyjson"
@@ -253,6 +261,73 @@
 
 [[projects]]
   branch = "master"
+  digest = "1:ca269627405a1eca810bd236973aa4b281ad8403f4157dea3a07cd6f55d2d2c5"
+  name = "github.com/openshift/api"
+  packages = [
+    ".",
+    "apps",
+    "apps/v1",
+    "authorization",
+    "authorization/v1",
+    "build",
+    "build/v1",
+    "config",
+    "config/v1",
+    "image",
+    "image/docker10",
+    "image/dockerpre012",
+    "image/v1",
+    "kubecontrolplane",
+    "kubecontrolplane/v1",
+    "legacyconfig/v1",
+    "network",
+    "network/v1",
+    "oauth",
+    "oauth/v1",
+    "openshiftcontrolplane",
+    "openshiftcontrolplane/v1",
+    "operator",
+    "operator/v1",
+    "operator/v1alpha1",
+    "osin",
+    "osin/v1",
+    "pkg/serialization",
+    "project",
+    "project/v1",
+    "quota",
+    "quota/v1",
+    "route",
+    "route/v1",
+    "security",
+    "security/v1",
+    "servicecertsigner",
+    "servicecertsigner/v1alpha1",
+    "template",
+    "template/v1",
+    "user",
+    "user/v1",
+    "webconsole",
+    "webconsole/v1",
+  ]
+  pruneopts = "NT"
+  revision = "e7dc90658844828191986cb07f3e44eeeba0b03a"
+
+[[projects]]
+  branch = "master"
+  digest = "1:4b91ca16b19f158f2c7bf223ee6cfdc2417554079de45862b8e7d2c52dc0d6b8"
+  name = "github.com/openshift/library-go"
+  packages = [
+    "pkg/operator/events",
+    "pkg/operator/resource/resourceapply",
+    "pkg/operator/resource/resourcemerge",
+    "pkg/operator/resource/resourceread",
+    "pkg/operator/v1alpha1helpers",
+  ]
+  pruneopts = "NT"
+  revision = "a1ed078fcc8923663018a68dd66acb7e080d3f19"
+
+[[projects]]
+  branch = "master"
   digest = "1:57b5e60954a9c1e3b17427ccab5771b96d6c9d48114cb50331eceff2ddc6ad45"
   name = "github.com/operator-framework/operator-sdk"
   packages = [
@@ -285,6 +360,14 @@
   pruneopts = "NT"
   revision = "5f041e8faa004a95c88a202771f4cc3e991971e6"
   version = "v2.0.1"
+
+[[projects]]
+  digest = "1:cd2f2cba5b7ffafd0412fb647ff4bcff170292de57270f05fbbf391e3eb9566b"
+  name = "github.com/sirupsen/logrus"
+  packages = ["."]
+  pruneopts = "NT"
+  revision = "bcd833dfe83d3cebad139e4a29ed79cb2318bf95"
+  version = "v1.2.0"
 
 [[projects]]
   digest = "1:9d8420bbf131d1618bde6530af37c3799340d3762cc47210c1d9532a4c3a2779"
@@ -476,6 +559,7 @@
     "core/v1",
     "events/v1beta1",
     "extensions/v1beta1",
+    "imagepolicy/v1alpha1",
     "networking/v1",
     "policy/v1beta1",
     "rbac/v1",
@@ -492,9 +576,20 @@
   revision = "2d6f90ab1293a1fb871cf149423ebb72aa7423aa"
 
 [[projects]]
+  digest = "1:117a407949aaaad9f7fbe3da8d6c2055f2c223ac0cbebd39f47ff71899622a91"
+  name = "k8s.io/apiextensions-apiserver"
+  packages = [
+    "pkg/apis/apiextensions",
+    "pkg/apis/apiextensions/v1beta1",
+  ]
+  pruneopts = "NT"
+  revision = "408db4a50408e2149acbd657bceb2480c13cb0a4"
+
+[[projects]]
   digest = "1:b07bf863262aae765494d60f0d524483f211b29f9bb27d445a79c13af8676bf2"
   name = "k8s.io/apimachinery"
   packages = [
+    "pkg/api/equality",
     "pkg/api/errors",
     "pkg/api/meta",
     "pkg/api/resource",
@@ -672,6 +767,20 @@
   version = "v0.1.0"
 
 [[projects]]
+  digest = "1:5bf7628fa2938ef77c3f66dce1fe0a2b5ae85192728fcead988d48d2d1041584"
+  name = "k8s.io/kube-aggregator"
+  packages = [
+    "pkg/apis/apiregistration",
+    "pkg/apis/apiregistration/v1",
+    "pkg/apis/apiregistration/v1beta1",
+    "pkg/client/clientset_generated/clientset/scheme",
+    "pkg/client/clientset_generated/clientset/typed/apiregistration/v1",
+  ]
+  pruneopts = "NT"
+  revision = "8e086f01c3c3620eca0eb45024cf7eafc0c54ba1"
+  version = "kubernetes-1.11.2"
+
+[[projects]]
   digest = "1:c48a795cd7048bb1888273bc604b6e69b22f9b8089c3df65f77cc527757b515c"
   name = "k8s.io/kube-openapi"
   packages = [
@@ -723,15 +832,19 @@
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
+    "github.com/openshift/library-go/pkg/operator/events",
+    "github.com/openshift/library-go/pkg/operator/resource/resourceapply",
+    "github.com/openshift/library-go/pkg/operator/resource/resourceread",
     "github.com/operator-framework/operator-sdk/pkg/k8sutil",
     "github.com/operator-framework/operator-sdk/version",
+    "github.com/sirupsen/logrus",
     "k8s.io/api/core/v1",
     "k8s.io/apimachinery/pkg/api/errors",
     "k8s.io/apimachinery/pkg/apis/meta/v1",
-    "k8s.io/apimachinery/pkg/apis/meta/v1/unstructured",
     "k8s.io/apimachinery/pkg/runtime",
     "k8s.io/apimachinery/pkg/runtime/schema",
-    "k8s.io/apimachinery/pkg/util/yaml",
+    "k8s.io/client-go/kubernetes",
+    "k8s.io/client-go/kubernetes/typed/apps/v1",
     "k8s.io/client-go/plugin/pkg/client/auth/gcp",
     "k8s.io/code-generator/cmd/client-gen",
     "k8s.io/code-generator/cmd/conversion-gen",
