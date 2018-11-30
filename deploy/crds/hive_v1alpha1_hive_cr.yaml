@@ -4,4 +4,4 @@ metadata:
   name: example-hive
 spec:
   # Add fields here
-  size: 3
+  image: quay.io/csrwng/hive-controller:latest

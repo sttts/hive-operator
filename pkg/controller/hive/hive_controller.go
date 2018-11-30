@@ -119,7 +119,12 @@ func (r *ReconcileHive) Reconcile(request reconcile.Request) (reconcile.Result, 
 	// managerDeployment is the byte array for manager_deployment.yaml, also we have to call
 	// resourceapply.ApplyDeployment to register a deployment to the client
 	managerDeployment := resourceread.ReadDeploymentV1OrDie(assets.MustAsset("deploy/config/manager_deployment.yaml"))
-	//TODO: change the deployment image name to the image name passed as environment variables
+	// containers is the array of containers that manager-deployment creates.
+	// It is one container for now but the code handles changing the image for multiple containers
+	containers := managerDeployment.Spec.Template.Spec.Containers
+	for containerIndex := 0; containerIndex < len(containers); containerIndex++ {
+		containers[containerIndex].Image = instance.Spec.Image
+	}
 	resourceapply.ApplyDeployment(r.deploymentClient,
 		recorder,
 		managerDeployment,

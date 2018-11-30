@@ -26,7 +26,7 @@ spec:
       # the local registry. Pull policy should be Never in this case, it will be
       # modified in overrides for actual environments.
       - image: hive-controller:latest
-        imagePullPolicy: Never
+        imagePullPolicy: IfNotPresent
         name: manager
         resources:
           limits:
