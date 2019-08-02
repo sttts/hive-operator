@@ -45,6 +45,14 @@
   version = "v2.8.0"
 
 [[projects]]
+  digest = "1:448bf60e9dce6d5fd9dfa8fd9eb9a23163424ff4e4f142456405781e942e3998"
+  name = "github.com/evanphx/json-patch"
+  packages = ["."]
+  pruneopts = "NT"
+  revision = "026c730a0dcc5d11f93f1cf1cc65b01247ea7b6f"
+  version = "v4.5.0"
+
+[[projects]]
   digest = "1:81466b4218bf6adddac2572a30ac733a9255919bc2f470b4827a317bd4ee1756"
   name = "github.com/ghodss/yaml"
   packages = ["."]
@@ -314,17 +322,16 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:4b91ca16b19f158f2c7bf223ee6cfdc2417554079de45862b8e7d2c52dc0d6b8"
+  digest = "1:62b86468a8746e3bec954fd54b348d0d886e9670e32b6561657f3c5d9872a8af"
   name = "github.com/openshift/library-go"
   packages = [
     "pkg/operator/events",
     "pkg/operator/resource/resourceapply",
     "pkg/operator/resource/resourcemerge",
     "pkg/operator/resource/resourceread",
-    "pkg/operator/v1alpha1helpers",
   ]
   pruneopts = "NT"
-  revision = "a1ed078fcc8923663018a68dd66acb7e080d3f19"
+  revision = "458d6de39a2563614183a7917d29a531a85a9cd5"
 
 [[projects]]
   branch = "master"
@@ -360,6 +367,14 @@
   pruneopts = "NT"
   revision = "5f041e8faa004a95c88a202771f4cc3e991971e6"
   version = "v2.0.1"
+
+[[projects]]
+  digest = "1:14715f705ff5dfe0ffd6571d7d201dd8e921030f8070321a79380d8ca4ec1a24"
+  name = "github.com/pkg/errors"
+  packages = ["."]
+  pruneopts = "NT"
+  revision = "ba968bfe8b2f7e042a574c888954fccecfa385b4"
+  version = "v0.8.1"
 
 [[projects]]
   digest = "1:cd2f2cba5b7ffafd0412fb647ff4bcff170292de57270f05fbbf391e3eb9566b"
@@ -581,6 +596,8 @@
   packages = [
     "pkg/apis/apiextensions",
     "pkg/apis/apiextensions/v1beta1",
+    "pkg/client/clientset/clientset/scheme",
+    "pkg/client/clientset/clientset/typed/apiextensions/v1beta1",
   ]
   pruneopts = "NT"
   revision = "408db4a50408e2149acbd657bceb2480c13cb0a4"
@@ -827,6 +844,14 @@
   pruneopts = "NT"
   revision = "5fd1e9e9fac5261e9ad9d47c375afc014fc31d21"
   version = "v0.1.7"
+
+[[projects]]
+  digest = "1:8730e0150dfb2b7e173890c8b9868e7a273082ef8e39f4940e3506a481cf895c"
+  name = "sigs.k8s.io/yaml"
+  packages = ["."]
+  pruneopts = "NT"
+  revision = "fd68e9863619f6ec2fdd8625fe1f02e7c877e480"
+  version = "v1.1.0"
 
 [solve-meta]
   analyzer-name = "dep"
